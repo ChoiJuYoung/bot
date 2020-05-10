@@ -55,6 +55,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def reply():
+    print(request)
     room = request.args.get('room')
     msg = request.args.get('msg')
     sender = request.args.get('sender')
