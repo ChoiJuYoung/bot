@@ -80,7 +80,7 @@ def reply():
             for x in lst:
                 ret *= (1 - 1.0 * int(x) / 100.0)
             ret = 1.0 - ret
-            return returnForm("입력하신 방무의 총 방무는 " + str(ret) + "% 입니다.")
+            return returnForm("입력하신 방무의 총 방무는 " + str(int(ret * 100)) + "% 입니다.")
         except:
             return returnFrom("입력값이 잘못되었습니다. 입력 형식은<br>!방무 방무값1 방무값2 방무값3...입니다.")
 
