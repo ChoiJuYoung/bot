@@ -55,21 +55,34 @@ app = Flask(__name__)
 
 @app.route('/')
 def reply():
-    print(request)
+    ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
+        return "ERR"
     room = request.args.get('room')
     msg = request.args.get('msg')
     sender = request.args.get('sender')
     isGroupChat = request.args.get('isGroupChat')
     
-    if msg == "!주사위":
+    if msg.startswith("!주사위"):
         value = int(random() * 101)
         return returnForm(str(value))
-    elif msg == "!동전":
+    elif msg.startswith("!동전"):
         value = int(random() * 398402) % 2
         if value == 0:
             return returnForm("앞면")
         else:
             return returnForm("뒷면")
+    elif msg.startswith("!방무"):
+        try:
+            msg = msg.replace("!방무 ", "")
+            lst = msg.split(" ")
+            ret = 1.0
+            for x in lst:
+                ret *= (1 - 1.0 * int(x) / 100.0)
+            ret = 1.0 - ret
+            return returnForm("입력하신 방무의 총 방무는 " + str(ret) + "% 입니다.")
+        except:
+            return returnFrom("입력값이 잘못되었습니다. 입력 형식은<br>!방무 방무값1 방무값2 방무값3...입니다.")
 
 
     res = detect_intent_texts(msg, sender)
