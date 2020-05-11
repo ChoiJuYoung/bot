@@ -18,21 +18,21 @@ def implement():
         for span in span_items:
             span.extract()
 
-        item = bs.find_all('li', attrs={'class': 'list-item'})
-        link = [it.a.attrs['href'] for it in item]
-        title = [it.a.text.strip() for it in item]
+        item = bs.find_all('a', attrs={'class': 'subject-link'})
+        link = ["https://quasarznoe.co.kr" + it.attrs['href'] for it in item]
+        title = [it.text.strip() for it in item]
 
         for li, ti in zip(link[4:], title[4:]):
             if li in entire_list.keys():
                 if ti == entire_list[li]:
                     continue
-                res.append(li + "\n제목 수정: " + entire_list[li] + " => " + ti)
+                res.append("제목 수정: " + entire_list[li] + " => " + ti + "\n" + li)
                 entire_list[li] = ti
                 save()
                 continue
             entire_list[li] = ti
             save()
-            res.append(li + "\n신규 정보: " + ti)
+            res.append("신규 정보: " + ti + "\n" + li)
         return res
     except:
         pass
