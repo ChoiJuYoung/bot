@@ -23,9 +23,9 @@ def set_memo(name, content):
 
 def show_memo(name):
     memo = get_memo(name)
-    ret = name + "의 메모 리스트입니다.\n"
+    ret = name + "의 메모 리스트입니다.<br>"
     for i in range(len(memo)):
-        ret += (str(i + 1) + ": " + memo[i] + "\n")
+        ret += (str(i + 1) + ": " + memo[i] + "<br>")
 
     return ret.strip()
 
