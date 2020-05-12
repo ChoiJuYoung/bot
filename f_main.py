@@ -86,18 +86,18 @@ def reply():
             return returnFrom("입력값이 잘못되었습니다. 입력 형식은<br>!방무 방무값1 방무값2 방무값3...입니다.")
     elif msg.replace(" ", "").startswith("!메모확인"):
         return returnForm(m.show_memo(sender))
-    elif msg.startswith("!메모 "):
-        try:
-            msg = msg[4:]
-            m.set_memo(sender, msg)
-            return returnForm("메모를 완료했습니다.")
-        except:
-            return returnForm("잘못된 입력입니다.")
     elif msg.replace(" ", "").startswith("!메모삭제"):
         try:
             msg = msg.replace(" ", "")[5:]
             m.del_memo(sender, int(msg))
             return returnForm("메모를 삭제했습니다.")
+        except:
+            return returnForm("잘못된 입력입니다.")
+    elif msg.startswith("!메모 "):
+        try:
+            msg = msg[4:]
+            m.set_memo(sender, msg)
+            return returnForm("메모를 완료했습니다.")
         except:
             return returnForm("잘못된 입력입니다.")
 
