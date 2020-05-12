@@ -10,7 +10,7 @@ def init():
 def implement():
     try:
         res = []
-        url = "https://quasarzone.co.kr/bbs/board.php?bo_table=qb_saleinfo"
+        url = "https://quasarzone.co.kr/bbs/qb_saleinfo"
         html = urlopen(url)
         bs = BeautifulSoup(html, "html.parser")
 
