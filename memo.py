@@ -23,7 +23,7 @@ def show_memo(name):
         memo = entire_memo[name]
         ret = name + "의 메모 리스트입니다.<br>"
         for i in range(len(memo)):
-        ret += (str(i + 1) + ": " + memo[i] + "<br>")
+            ret += (str(i + 1) + ": " + memo[i] + "<br>")
 
         return ret.strip()
     except:
