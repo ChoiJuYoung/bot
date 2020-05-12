@@ -8,7 +8,7 @@ def init():
 
 def save():
     f = open('C:\\memo.txt', 'w')
-    f.write(str(entire_memo))
+    f.write(str(entire_memo).replace("\'", "\""))
 
 
 def get_memo(name):
