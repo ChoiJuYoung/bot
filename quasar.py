@@ -19,7 +19,7 @@ def implement():
             span.extract()
 
         item = bs.find_all('a', attrs={'class': 'subject-link'})
-        link = ["https://quasarznoe.co.kr" + it.attrs['href'] for it in item]
+        link = ["https://quasarzone.co.kr" + it.attrs['href'] for it in item]
         title = [it.text.strip() for it in item]
 
         for li, ti in zip(link[4:], title[4:]):
