@@ -31,6 +31,6 @@ def show_memo(name):
 
 def del_memo(name, num):
     num = num - 1
-    if num < len(name):
+    if num < len(entire_memo[name]):
         del entire_memo[name][num]
     save()
