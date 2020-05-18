@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect
+import os
 
 import dialogflow_v2 as dialogflow
 from google.cloud.bigquery.client import Client
