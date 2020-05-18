@@ -58,7 +58,7 @@ def reply():
     isGroupChat = request.args.get('isGroupChat')
 
     res = detect_intent_texts(msg, sender)
-    if res.starswith("메뉴:"):
+    if res.startswith("메뉴:"):
         res = res[3:]
         res = "second밥"
         ret = "TEMPLATE25325TEMPLATEmenuARGS" + res + "ARGSimgARGShttp://godzero.iptime.org:5001/static/" + res + ".png"
