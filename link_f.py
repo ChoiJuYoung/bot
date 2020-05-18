@@ -57,7 +57,7 @@ def reply():
     if res.startswith("메뉴:"):
         res = res[3:]
         res = "second밥"
-        ret = "TEMPLATE25325TEMPLATE" + res + "ARGShttp://godzero.iptime.org:5001/static/" + res + ".png"
+        ret = "TEMPLATE25325TEMPLATE" + res
         return returnForm(ret)
 
     return returnForm("None")
