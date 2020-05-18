@@ -51,11 +51,15 @@ def returnForm(res):
     </html>"
 
 
-
 app = Flask(__name__)
 
 @app.route('/')
 def reply():
+    platform = request.args.get("platform")
+    if platform == "link":
+        return returnForm("None")
+
+
     ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
         return "ERR"
@@ -107,6 +111,8 @@ def reply():
     elif res.startswith("날씨:"):
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
+    elif res.starswith("메뉴:"):
+        return returnForm("None")
         
     return returnForm(res)
     
