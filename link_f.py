@@ -48,10 +48,6 @@ def reply():
     if platform == "green":
         return returnForm("None")
 
-
-    ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
-        return "ERR"
     room = request.args.get('room')
     msg = request.args.get('msg')
     sender = request.args.get('sender')
@@ -61,7 +57,7 @@ def reply():
     if res.startswith("메뉴:"):
         res = res[3:]
         res = "second밥"
-        ret = "TEMPLATE25325TEMPLATEmenuARGS" + res + "ARGSimgARGShttp://godzero.iptime.org:5001/static/" + res + ".png"
+        ret = "TEMPLATE25325TEMPLATE" + res + "ARGShttp://godzero.iptime.org:5001/static/" + res + ".png"
         return returnForm(ret)
 
     return returnForm("None")
