@@ -111,7 +111,7 @@ def reply():
     elif res.startswith("날씨:"):
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
-    elif res.starswith("메뉴:"):
+    elif res.startswith("메뉴:"):
         return returnForm("None")
         
     return returnForm(res)
