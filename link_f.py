@@ -56,7 +56,6 @@ def reply():
     res = detect_intent_texts(msg, sender)
     if res.startswith("메뉴:"):
         res = res[3:]
-        res = "second밥"
         ret = "TEMPLATE25325TEMPLATE" + res
         return returnForm(ret)
 
