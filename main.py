@@ -6,7 +6,7 @@ import quasar as q
 def sendMsg(room, msg):
     try:
         hwnd1 = win32gui.FindWindow(None, room)
-        hwnd2 = win32gui.FindWindowEx(hwnd1, 0, "RichEdit20W", "")
+        hwnd2 = win32gui.FindWindowEx(hwnd1, 0, "RICHEDIT50W", "")
         win32gui.SendMessage(hwnd2, 0x000c, 0, msg)
         win32gui.PostMessage(hwnd2, 0x0100, 0xD, 0x1C001)
         print("LOG: [" + room + "] :" + msg)
