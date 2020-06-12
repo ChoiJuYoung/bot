@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 from weather import getWeather
 import memo as m
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:\\choco-bot-apikey.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath("/home/hajuu96/choco-bot-apikey.json")
 # apikey 획득
 
 
@@ -60,9 +60,9 @@ def reply():
         return returnForm("None")
 
 
-    ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
-        return "ERR"
+    #ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    #if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
+    #    return "ERR"
     room = request.args.get('room')
     msg = request.args.get('msg')
     sender = request.args.get('sender')
