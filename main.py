@@ -62,7 +62,8 @@ msgList.append([weather, weather_list, "날씨"])
 alarm = [
     ["2055", "서산", "@임동훈 @이성표 @최주영 모여라", true],
     ["2315", "서산", "몬파 보돌 일퀘 우르스 / 몬라 유니온", true],
-    ["0830", "주영", "유산균 먹고가자", true]
+    ["0830", "주영", "유산균 먹고가자", true],
+    ["2200", "주영", "비타민 먹자", true]
 ]
 
 alarm_list = [False] * len(alarm)
