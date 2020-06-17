@@ -20,7 +20,7 @@ def implement():
 
         item = bs.find_all('a', attrs={'class': 'subject-link'})
         link = ["https://quasarzone.co.kr" + it.attrs['href'] for it in item]
-        title = [it.text.strip() for it in item]
+        title = [it.text.replace('\"', "").strip() for it in item]
 
         for li, ti in zip(link[4:], title[4:]):
             if li in entire_list.keys():
