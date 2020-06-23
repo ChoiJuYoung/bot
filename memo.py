@@ -5,11 +5,13 @@ def init():
     global entire_memo
     f = open(os.path.abspath("/home/hajuu96/memo"), 'r')
     entire_memo = json.loads(f.read())
+    f.close()
     
 
 def save():
     f = open(os.path.abspath("/home/hajuu96/memo"), 'w')
     f.write(str(entire_memo).replace("\'", "\""))
+    f.close()
 
 
 def set_memo(name, content):

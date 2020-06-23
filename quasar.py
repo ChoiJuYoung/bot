@@ -6,6 +6,7 @@ def init():
     global entire_list
     f = open("C:\\quasar.txt", 'r')
     entire_list = json.loads(f.read())
+    f.close()
 
 def implement():
     try:
@@ -40,3 +41,4 @@ def implement():
 def save():
     f = open('C:\\quasar.txt', 'w')
     f.write(str(entire_list).replace("\'", "\""))
+    f.close()

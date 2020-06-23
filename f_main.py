@@ -112,7 +112,9 @@ def reply():
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
     elif res.startswith("메뉴:"):
-        return returnForm("None")
+        res = res[3:]
+        res = "오늘의 초코 추천 메뉴는!<br>" + res + "입니다!!!"
+        return returnForm(res)
         
     return returnForm(res)
     
