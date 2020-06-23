@@ -40,5 +40,5 @@ def implement():
 
 def save():
     f = open('C:\\quasar.txt', 'w')
-    f.write(str(entire_list).replace("\'", "\""))
+    f.write(str(entire_list).replace("\"","").replace("\'", "\""))
     f.close()
