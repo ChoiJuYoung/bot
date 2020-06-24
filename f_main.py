@@ -5,6 +5,8 @@ from random import random
 
 from flask import Flask, request, jsonify
 
+import requests
+
 import dialogflow_v2 as dialogflow
 from google.cloud.bigquery.client import Client
 from google.protobuf.json_format import MessageToJson
@@ -50,6 +52,14 @@ def returnForm(res):
     </body> \
     </html>"
 
+def chk_matchum(msg):
+    payload['q'] = msg
+    r=requests.Session().get(baseurl, params=payload, headers=headers)
+    r=r.text[42:-2]
+    data=json.loads(r)
+    html=data['message']['result']['html']
+    bs=BeautifulSoup(html, "html.parser")
+    return bs.text
 
 app = Flask(__name__)
 
@@ -107,7 +117,11 @@ def reply():
 
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
-        res = "None"
+        comp = chk_matchum(msg)
+        if comp.replace(" ", "") != msg.replace(" ", ""):
+            res = "어이 닝겐,<br>" + msg + "의 올바른 표현은<br>" + comp + "라구."
+        else:
+            res = "None"
     elif res.startswith("날씨:"):
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
@@ -119,5 +133,19 @@ def reply():
     return returnForm(res)
     
 m.init()
+
+baseurl = 'https://m.search.naver.com/p/csearch/ocontent/spellchecker.nhn'
+
+payload = {
+    '_callback': 'window.__jindo2_callback._spellingCheck_0',
+    'q': ''
+}
+
+headers = {
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+    'referer': 'https://search.naver.com/',
+}
+
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
