@@ -60,10 +60,12 @@ msgList.append([weather, weather_list, "날씨"])
 
 
 alarm = [
-    ["2055", "서산", "@임동훈 @이성표 @최주영 모여라", true],
+    #["2055", "서산", "@임동훈 @이성표 @최주영 모여라", true],
     ["2315", "서산", "몬파 보돌 일퀘 우르스 / 몬라 유니온", true],
     ["0830", "주영", "유산균 먹고가자", true],
-    ["2200", "주영", "비타민 먹자", true]
+    ["2200", "주영", "비타민 먹자", true],
+    ["1130", "서산", "12플?", true],
+    ["1800", "서산", "7 9?", true]
 ]
 
 alarm_list = [False] * len(alarm)
@@ -89,7 +91,7 @@ while True:
                    lst[1] = [False] * len(lst[0])
 
         quasar += q.implement()
-        if(now == "0800" or now == "1400" or now == "1946"):
+        if(now == "0800" or now == "1400" or now == "2000"):
             qres = ""
             for qu in quasar:
                 qres += (qu + "\n")
