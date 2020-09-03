@@ -4,6 +4,7 @@ import json
 
 def init():
     global entire_list
+    entire_list = {}
     f = open("C:\\quasar.txt", 'r')
     entire_list = json.loads(f.read())
     f.close()
@@ -20,8 +21,9 @@ def implement():
             span.extract()
 
         item = bs.find_all('a', attrs={'class': 'subject-link'})
+        
         link = ["https://quasarzone.co.kr" + it.attrs['href'] for it in item]
-        title = [it.text.replace('\"', "").replace('\'', '').strip() for it in item]
+        title = [it.text.replace('\"', '').replace('\'', '').strip() for it in item]
 
         for li, ti in zip(link[4:], title[4:]):
             if li in entire_list.keys():

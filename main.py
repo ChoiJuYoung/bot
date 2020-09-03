@@ -89,7 +89,7 @@ while True:
                    lst[1] = [False] * len(lst[0])
 
         quasar += q.implement()
-        if(now == "0800" or now == "1400" or now == "2000"):
+        if(now == "0800" or now == "1400" or now == "1946"):
             qres = ""
             for qu in quasar:
                 qres += (qu + "\n")
