@@ -1,6 +1,8 @@
 from urllib.request import urlopen
+from urllib.request import Request
 from urllib import parse
 from bs4 import BeautifulSoup
+from selenium import webdriver
 
 def getWeather(where):
     url = "https://search.naver.com/search.naver?query=" + parse.quote(where + "+날씨")
@@ -41,3 +43,26 @@ def getWeather(where):
     
     return [text1, text2]
 
+def overseas(where):
+    url = "https://www.google.com/search?q=" + parse.quote(where + "+날씨")
+    driver = webdriver.Chrome()
+    driver.get(url)
+    html = driver.page_source
+    bsObject = BeautifulSoup(html, "html.parser")
+    bsObject = str(bsObject)
+
+    print(bsObject)
+
+    weather = bsObject.split ("<span class=\"vk_gy vk_sh\" id=\"wob_dc\">")[1].split ("<")[0]
+    temp = bsObject.split ("<span class=\"wob_t\" id=\"wob_tm\" style=\"display:inline\">")[1].split ("<")[0]
+    rainp = bsObject.split ("<span id=\"wob_pp\">")[1].split ("<")[0]
+    humid = bsObject.split ("<span id=\"wob_hm\">")[1].split ("<")[0]
+    wind = bsObject.split ("<span class=\"wob_t\" id=\"wob_ws\">")[1].split ("<")[0]
+    htemp = bsObject.split ("<span class=\"wob_t\" style=\"display:inline\">")[1].split ("<")[0]
+    ltemp = bsObject.split ("<span class=\"wob_t\" style=\"display:inline\">")[2].split ("<")[0]
+    text1 = where + "의 기상정보\n\n" + "날씨: " + weather  + "\n" + "최저/최고 기온: " + ltemp + "º / " + htemp + "º\n" + "현재 기온: " + temp + "º\n" + "습도: " + humid + "\n" + "풍속: " + wind + "\n" + "강수확률: " + rainp
+
+    return text1
+
+if __name__ == '__main__':
+    print(overseas("상해"))
