@@ -5,7 +5,7 @@ import json
 def init():
     global entire_list
     entire_list = {}
-    f = open("C:\\quasar.txt", 'r')
+    f = open("D:\\quasar.txt", 'r')
     entire_list = json.loads(f.read())
     f.close()
 
@@ -41,6 +41,12 @@ def implement():
         pass
 
 def save():
-    f = open('C:\\quasar.txt', 'w')
+    f = open('D:\\quasar.txt', 'w')
     f.write(str(entire_list).replace("\"","").replace("\'", "\""))
     f.close()
+
+if __name__ == '__main__':
+    init()
+    imp = implement()
+    for i in imp:
+        print(i)
