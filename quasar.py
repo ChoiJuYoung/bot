@@ -5,9 +5,9 @@ import json
 def init():
     global entire_list
     entire_list = {}
-    f = open("D:\\quasar.txt", 'r')
-    entire_list = json.loads(f.read())
-    f.close()
+    #f = open("D:\\quasar.txt", 'r')
+    #entire_list = json.loads(f.read())
+    #f.close()
 
 def implement():
     try:
@@ -34,7 +34,7 @@ def implement():
                 save()
                 continue
             entire_list[li] = ti
-            save()
+            #save()
             res.append("신규 정보: " + ti + "\n" + li)
         return res
     except:
