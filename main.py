@@ -2,6 +2,7 @@ import win32gui, time
 from datetime import datetime
 from weather import getWeather
 import quasar as q
+from news import getNews
 
 def sendMsg(room, msg):
     try:
@@ -75,6 +76,7 @@ alarm = [
 ]
 
 alarm_list = [False] * len(alarm)
+news_list = False
 
 msgList.append([alarm, alarm_list, "MSG"])
 
@@ -94,7 +96,8 @@ while True:
 
         if now == "2359":
             for lst in msgList:
-                   lst[1] = [False] * len(lst[0])
+                lst[1] = [False] * len(lst[0])
+            new_list = False
 
         quasar += q.implement()
         if(now == "0800" or now == "1400" or now == "2000"):
@@ -105,6 +108,10 @@ while True:
             if qres != "":
                 sendMsg("병신톡", qres)
             quasar = []
+
+        if now == "0630" and not news_list:
+            sendMsg("병신톡", getNews())
+            news_list = True
 
         time.sleep(20)
     except:
