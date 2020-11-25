@@ -97,7 +97,7 @@ while True:
         if now == "2359":
             for lst in msgList:
                 lst[1] = [False] * len(lst[0])
-            new_list = False
+            news_list = False
 
         quasar += q.implement()
         if(now == "0800" or now == "1400" or now == "2000"):
