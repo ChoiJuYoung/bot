@@ -2,6 +2,7 @@ from flask import Flask, request, redirect
 import os
 
 import dialogflow_v2 as dialogflow
+from dialogflow_v2.types import TextInput, QueryInput
 from google.cloud.bigquery.client import Client
 from google.protobuf.json_format import MessageToJson
 
@@ -14,9 +15,9 @@ def detect_intent_texts(text, id):
     language_code = "ko"
     session = session_client.session_path(project_id, session_id)
     
-    text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
+    text_input = TextInput(text=text, language_code=language_code)
 
-    query_input = dialogflow.types.QueryInput(text=text_input)
+    query_input = QueryInput(text=text_input)
 
     response = session_client.detect_intent(session=session, query_input=query_input)
     

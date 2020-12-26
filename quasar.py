@@ -12,18 +12,19 @@ def init():
 def implement():
     try:
         res = []
-        url = "https://quasarzone.co.kr/bbs/qb_saleinfo"
+        url = "https://quasarzone.com/bbs/qb_saleinfo"
         html = urlopen(url)
         bs = BeautifulSoup(html, "html.parser")
 
-        span_items = bs.find_all('span')
-        for span in span_items:
-            span.extract()
+        #span_items = bs.find_all('span')
+        #for span in span_items:
+            #span.extract()
 
         item = bs.find_all('a', attrs={'class': 'subject-link'})
         
+        
         link = ["https://quasarzone.co.kr" + it.attrs['href'] for it in item]
-        title = [it.text.replace('\"', '').replace('\'', '').strip() for it in item]
+        title = [it.text.replace('\"', '').replace('\'', '').strip().split('\n')[0] for it in item]
 
         for li, ti in zip(link[4:], title[4:]):
             if li in entire_list.keys():

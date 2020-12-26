@@ -8,6 +8,7 @@ from flask import Flask, request, jsonify
 import requests
 
 import dialogflow_v2 as dialogflow
+from dialogflow_v2.types import TextInput, QueryInput
 from google.cloud.bigquery.client import Client
 from google.protobuf.json_format import MessageToJson
 
@@ -18,7 +19,7 @@ from bs4 import BeautifulSoup
 from weather import getWeather
 import memo as m
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath("/home/hajuu96/choco-bot-apikey.json")
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath("C:\\choco-bot-apikey.json")
 # apikey 획득
 
 
@@ -29,9 +30,9 @@ def detect_intent_texts(text, id):
     language_code = "ko"
     session = session_client.session_path(project_id, session_id)
     
-    text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
+    text_input = TextInput(text=text, language_code=language_code)
 
-    query_input = dialogflow.types.QueryInput(text=text_input)
+    query_input = QueryInput(text=text_input)
 
     response = session_client.detect_intent(session=session, query_input=query_input)
     
@@ -97,7 +98,7 @@ def reply():
             ret = 1.0 - ret
             return returnForm("입력하신 방무의 총 방무는 " + str(int(ret * 100)) + "% 입니다.")
         except:
-            return returnFrom("입력값이 잘못되었습니다. 입력 형식은<br>!방무 방무값1 방무값2 방무값3...입니다.")
+            return returnForm("입력값이 잘못되었습니다. 입력 형식은<br>!방무 방무값1 방무값2 방무값3...입니다.")
     elif msg.replace(" ", "").startswith("!메모확인"):
         return returnForm(m.show_memo(sender))
     elif msg.replace(" ", "").startswith("!메모삭제"):
@@ -118,6 +119,7 @@ def reply():
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
         comp = chk_matchum(msg)
+        print(comp)
         if comp.replace(" ", "") != msg.replace(" ", ""):
             res = "어이 닝겐,<br>" + msg + "의 올바른 표현은<br>" + comp + "라구."
         else:
@@ -125,10 +127,10 @@ def reply():
     elif res.startswith("날씨:"):
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
-    elif res.startswith("메뉴:"):
-        res = res[3:]
-        res = "오늘의 초코 추천 메뉴는!<br>" + res + "입니다!!!"
-        return returnForm(res)
+    #elif res.startswith("메뉴:"):
+    #    res = res[3:]
+    #    res = "오늘의 초코 추천 메뉴는!<br>" + res + "입니다!!!"
+    #    return returnForm(res)
         
     return returnForm(res)
     
