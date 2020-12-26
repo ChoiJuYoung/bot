@@ -3,13 +3,13 @@ import os
 
 def init():
     global entire_memo
-    f = open(os.path.abspath("memo.txt"), 'r')
+    f = open(os.path.abspath("C:\\memo.txt"), 'r')
     entire_memo = json.loads(f.read())
     f.close()
     
 
 def save():
-    f = open(os.path.abspath("memo.txt"), 'w')
+    f = open(os.path.abspath("C:\\memo.txt"), 'w')
     f.write(str(entire_memo).replace("\'", "\""))
     f.close()
 
