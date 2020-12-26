@@ -118,12 +118,12 @@ def reply():
 
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
-        comp = chk_matchum(msg)
-        print(comp)
-        if comp.replace(" ", "") != msg.replace(" ", ""):
-            res = "어이 닝겐,<br>" + msg + "의 올바른 표현은<br>" + comp + "라구."
-        else:
-            res = "None"
+        #comp = chk_matchum(msg)
+        #print(comp)
+        #if comp.replace(" ", "") != msg.replace(" ", ""):
+        #    res = "어이 닝겐,<br>" + msg + "의 올바른 표현은<br>" + comp + "라구."
+        #else:
+        res = "None"
     elif res.startswith("날씨:"):
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
