@@ -115,6 +115,10 @@ def reply():
             return returnForm("메모를 완료했습니다.")
         except:
             return returnForm("잘못된 입력입니다.")
+    elif 'vs' in msg:
+        lst = [m.strip() for m in msg.split('vs')]
+        r = int(random() * len(lst))
+        return returnForm(lst[r])
 
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
