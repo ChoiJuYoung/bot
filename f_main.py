@@ -19,6 +19,14 @@ from bs4 import BeautifulSoup
 from weather import getWeather
 import memo as m
 
+from KakaoModule import Kakao
+
+f = open('D:\\key.txt', 'r')
+key = f.read()
+key = key.split('\n')
+KakaoLink = Kakao(key[0])
+KakaoLink.login(key[1], key[2])
+
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath("C:\\choco-bot-apikey.json")
 # apikey 획득
 
@@ -66,11 +74,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def reply():
-    platform = request.args.get("platform")
-    if platform == "link":
-        return returnForm("None")
-
-
     #ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     #if not (ip.startswith('192.168.0.') or ip.startswith('127.0.0.')):
     #    return "ERR"
@@ -119,6 +122,9 @@ def reply():
         lst = [m.strip() for m in msg.split('vs')]
         r = int(random() * len(lst))
         return returnForm(lst[r])
+    elif msg.endswith('확률'):
+        r = int(random() * 101)
+        return returnForm(msg + "은\n " + str(r) + "%입니다.")
 
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
@@ -132,12 +138,21 @@ def reply():
         ress = getWeather(res[3:])
         res = ress[0].replace("\n", "<br>") + "MESSAGESPLIT" + ress[1].replace("\n", "<br>")
     elif res.startswith("메뉴:"):
-        res = "None"
-    #    res = res[3:]
-    #    res = "오늘의 초코 추천 메뉴는!<br>" + res + "입니다!!!"
-    #    return returnForm(res)
+        res = res[3:]
+        args = {'menu' : res, 'img': 'http://godzero.iptime.org:5000/static/' + res + '.png'}
+        template = 25325
+        kakao_send(room, template, args)
+        res = 'None'
         
     return returnForm(res)
+
+def kakao_send(room, template, args):
+    KakaoLink.send(room, {
+                    "link_ver": "4.0",
+                    "template_id": template,
+                    "template_args": args
+                }, "custom")
+
     
 m.init()
 
