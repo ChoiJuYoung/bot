@@ -3,7 +3,7 @@ import ssl
 import os
 from random import random
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 
 import requests
 
@@ -20,6 +20,8 @@ from weather import getWeather
 import memo as m
 
 from KakaoModule import Kakao
+
+import get_mgg as mgg
 
 f = open('D:\\key.txt', 'r')
 key = f.read()
@@ -125,6 +127,14 @@ def reply():
     elif msg.endswith('확률'):
         r = int(random() * 101)
         return returnForm(msg + "은\n " + str(r) + "%입니다.")
+    elif msg.startswith('!코디'):
+        try:
+            msg = msg[3:].strip()
+            res = mgg.get_cody(msg)
+            kakao_send(room, res[0], res[1])
+            return returnForm('None')
+        except:
+            return returnForm('입력 형식이 잘못되었습니다.\n!코디 [닉네임] 입니다.')
 
     res = detect_intent_texts(msg, sender)
     if res == "fallback":
@@ -145,6 +155,16 @@ def reply():
         res = 'None'
         
     return returnForm(res)
+
+@app.route('/redirect/search')
+def redirect_search():
+    url = "https://search.naver.com/search.naver?query=" + request.args.get('query')
+    return redirect(url)
+
+@app.route('/redirect/maple')
+def redirect_maple():
+    url = 'https://maple.gg/u/' + request.args.get('name')
+    return redirect(url)
 
 def kakao_send(room, template, args):
     KakaoLink.send(room, {
